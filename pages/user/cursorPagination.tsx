@@ -6,16 +6,28 @@ import { Title } from '@/components/Title';
 import { Page } from '@/types/Page';
 import { Alert } from 'antd';
 import { useState } from 'react';
+//import axios from 'axios';
 
 const UserTableRow: React.FC<{
     user: CursorPaginationModel
 }> = ({ user }) => {
+
+    // async function fetchImage(){
+    //     const responseUrl = await axios.get<string>(`/api/be/api/Blob?fileName=${user.blobId}`);
+    //     return responseUrl.then((resp) =>{
+    //         resp.data;
+    //     } )
+    //     return responseUrl.data;
+    // }
 
     return (
         <tr>
             <td className="border px-4 py-2">{user.id}</td>
             <td className="border px-4 py-2">{user.name}</td>
             <td className="border px-4 py-2">{user.email}</td>
+            <td className="px-6 py-4 whitespace-nowrap border">
+                <img className="h-96 w-96 rounded-full" src={`/api/be/api/Blob/redirect?fileName=${user.fileUrl}`} alt="Profile" />
+            </td>
         </tr>
     );
 }
@@ -35,6 +47,7 @@ const IndexPage: Page = () => {
                         <th className='px-4 py-2'>Id</th>
                         <th className='px-4 py-2'>Username</th>
                         <th className='px-4 py-2'>Email</th>
+                        <th className='px-4 py-2'>Profile Picture</th>
                     </tr>
                 </thead>
                 <tbody>

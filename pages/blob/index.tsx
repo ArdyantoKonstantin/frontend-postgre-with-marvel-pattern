@@ -1,7 +1,7 @@
 import { WithDefaultLayout } from '@/components/DefautLayout';
 import { Title } from '@/components/Title';
 import { Page } from '@/types/Page';
-import{v4} from 'uuid';
+import{v4 as uuidv4} from 'uuid';
 import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 
@@ -18,13 +18,13 @@ const IndexPage: Page = () => {
 
         const fileName = files[0]?.name;
         const filetype = files[0]?.type;
-        const fileId = v4();
-        const response = await axios.get<string>(`api/be/api/Blob/presigned-put-object?fileName=${fileName}`);
+        const fileId = uuidv4();
+        const response = await axios.get<string>(`/api/be/api/Blob/presigned-put-object?fileName=${fileName}`);
         axios.put(response.data, files[0]);
 
-        axios.post(`api/be/api/Blob/blob-information?id=${fileId}&fileName=${fileName}&mime=${filetype}`)
+        axios.post(`/api/be/api/Blob/blob-information?id=${fileId}&fileName=${fileName}&mime=${filetype}`)
 
-        const responseUrl = await axios.get(`api/be/api/Blob?fileName=${fileName}`);
+        const responseUrl = await axios.get(`/api/be/api/Blob?fileName=${fileName}`);
         setImgUrl(responseUrl.data);
 
     }
